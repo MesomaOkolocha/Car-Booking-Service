@@ -26,15 +26,26 @@ public class UserService {
     public User getUserById(UUID userId){
         List<User> users = userFileDAO.getUsers();
         //create default user if the user does not exist
-        User expectedUser = new User("User does not exist");
-        //check if the user exists and return them otherwise we return the default
-        for (User user:users){
-            if (user.getUserId().equals(userId)){
-                expectedUser = user;
-                return expectedUser;
+        User expectedUser = null;
+        try{
+            for (User user:users){
+                if (user.getUserId().equals(userId)){
+                    expectedUser = user;
+                    break;
+                }
             }
+            return expectedUser;
+        }catch(NullPointerException e){
+            throw new NullPointerException();
         }
-        System.out.println("❌ User does not exist❗️❗️❗️");
-        return expectedUser;
+//        //check if the user exists and return them otherwise we return the default
+//        for (User user:users){
+//            if (user.getUserId().equals(userId)){
+//                expectedUser = user;
+//                return expectedUser;
+//            }
+//        }
+//        
+//        return expectedUser;
     }
 }

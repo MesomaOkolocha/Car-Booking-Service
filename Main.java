@@ -97,8 +97,12 @@ public class Main {
             }
         }
         if(tracker != 0){
-            User user = userService.getUserById(UUID.fromString(input));
-            response = "❌ user "+user.toString()+" has no cars booked";
+            try{
+                User user = userService.getUserById(UUID.fromString(input));
+                response = "❌ user "+user.toString()+" has no cars booked";
+            }catch (IllegalArgumentException | NullPointerException e){
+                System.out.println("❌ invalid UserId, UserId does not exists");
+            }
         }
         System.out.println(response);
     }
