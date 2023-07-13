@@ -100,8 +100,11 @@ public class Main {
             try{
                 User user = userService.getUserById(UUID.fromString(input));
                 response = "❌ user "+user.toString()+" has no cars booked";
-            }catch (IllegalArgumentException | NullPointerException e){
-                System.out.println("❌ invalid UserId, UserId does not exists");
+            }catch (IllegalArgumentException e){
+                System.out.println("❌ invalid UserId");
+                System.out.println(e.getMessage());
+            }catch (NullPointerException e){
+                System.out.println("❌ UserID does not exist");
             }
         }
         System.out.println(response);
