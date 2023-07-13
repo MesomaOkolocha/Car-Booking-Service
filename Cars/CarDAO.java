@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarDAO {
-    private static List<Car> cars;
-    private static int nextAvailableSlot =0;
+    private final static List<Car> cars;
 
     static{
         cars = new ArrayList<>();
@@ -17,9 +16,5 @@ public class CarDAO {
 
     public List<Car> getCars(){
         return cars;
-    }
-
-    public int getNextAvailableSlot() {
-        return nextAvailableSlot;
     }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarBookingDAO {
-    private static List<CarBooking> bookings;
+    private static final List<CarBooking> bookings;
 
     static{
         bookings = new ArrayList<>();
