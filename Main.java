@@ -8,7 +8,6 @@ import Cars.CarService;
 import User.User;
 import User.UserFileDAO;
 import User.UserService;
-import utils.RemoveNullValues;
 
 import java.util.*;
 
@@ -32,14 +31,7 @@ public class Main {
         carService.addNewCar(toyota);
         carService.addNewCar(audi);
         carService.addNewCar(hyundai);
-        //System.out.println(Arrays.toString(userService.viewAllUsers()));
-        String menu = "1️⃣-Book Car\n" +
-                "2️⃣-View All User Booked cars\n" +
-                "3️⃣-View All bookings\n" +
-                "4️⃣-View Available Cars\n" +
-                "5️⃣-View Available Electric cars\n" +
-                "6️⃣-View All Users\n" +
-                "7️⃣-Exit\n";
+        String menu = getMenu();
         boolean condition = true;
         while(condition){
             System.out.println(menu);
@@ -56,6 +48,17 @@ public class Main {
                 default:System.out.println(input + " is not a valid option ❌\n");break;
             }
         }
+    }
+
+    private static String getMenu() {
+        return "\n"+
+                "1️⃣-Book Car\n" +
+                "2️⃣-View All User Booked cars\n" +
+                "3️⃣-View All bookings\n" +
+                "4️⃣-View Available Cars\n" +
+                "5️⃣-View Available Electric cars\n" +
+                "6️⃣-View All Users\n" +
+                "7️⃣-Exit\n";
     }
 
     public static void viewAllUsers(UserService userService){
@@ -113,7 +116,6 @@ public class Main {
     public static void bookCar(UserService userService, CarBookingService carBookingService){
         if(carBookingService.getAllCars().size() == 0){
             System.out.println("No cars have been added yet");
-            return;
         }else{
             List<Car> currentCars = carBookingService.getAllCars();
             List<Car> availableCars = new ArrayList<>();
