@@ -16,7 +16,7 @@ public class CarService {
             System.out.println("car is null!, pass in a user");
         }else{
             //check if car with same reg number already exists
-            for(int i=0;i<carDAO.getNextAvailableSlot();i++){
+            for(int i=0;i<carDAO.getCars().size();i++){
                 if (car.getRegNumber().equals(carDAO.getCars().get(i).getRegNumber())){
                     System.out.println("Can't have the same reg Number\n"+"Car "+ carDAO.getCars().get(i) +" already exists");
                     return;
