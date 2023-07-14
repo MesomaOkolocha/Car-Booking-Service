@@ -10,6 +10,7 @@ import User.UserFileDAO;
 import User.UserService;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -67,19 +68,15 @@ public class Main {
             System.out.println("❌ No users in the system");
             return;
         }
-        for (User user : users) {
-            System.out.println(user);
-        }
+        users.forEach(System.out::println);
     }
 
     public static void viewBookings(CarBookingService carBookingService){
         List<CarBooking> bookings = carBookingService.getBookings();
-        if (bookings.size() == 0){
+        if (bookings.isEmpty()){
             System.out.println("No bookings available \uD83D\uDE15");
         }else{
-            for (CarBooking booking : bookings) {
-                System.out.println(booking.toString());
-            }
+            bookings.forEach(System.out::println);
         }
     }
 
@@ -140,9 +137,7 @@ public class Main {
             if(tracker != 0){
                 System.out.println("reg number does not exist \uD83D\uDE14 " + "try booking a different car");
             }else{
-                for(User user: userService.getUsers()){
-                    System.out.println(user);
-                }
+                userService.getUsers().forEach(System.out::println);
                 tracker = 1;
                 System.out.println("➡️ Select user id");
                 input = scanner.nextLine();
@@ -168,17 +163,8 @@ public class Main {
         if(carBookingService.getAllCars().size() == 0){
             System.out.println("No cars have been added yet");
         }else{
-            List<Car> currentCars = carBookingService.getAllCars();
-            List<Car> availableCars = new ArrayList<>();
-            for (Car currentCar : currentCars) {
-                if(currentCar.isAvailable()){
-                    availableCars.add(currentCar);
-                }
-
-            }
-            for (Car availableCar : availableCars) {
-                System.out.println(availableCar.toString());
-            }
+            List<Car> allCars = carBookingService.getAllCars();
+            printAvailableCars(allCars);
         }
     }
 
@@ -186,18 +172,15 @@ public class Main {
         if(carBookingService.getAllCars().size() == 0){
             System.out.println("No cars have been added yet");
         }else{
-            List<Car> currentCars = carBookingService.getAllCars();
-            List<Car> availableCars = new ArrayList<>();
-            for (Car currentCar : currentCars) {
-                if(currentCar.isAvailable() && currentCar.isElectric()){
-                    availableCars.add(currentCar);
-                }
-
-            }
-            for (Car availableCar : availableCars) {
-                System.out.println(availableCar.toString());
-            }
+            List<Car> allElectricCars = carBookingService.getAllElectricCars();
+            printAvailableCars(allElectricCars);
         }
     }
+
+    private static void printAvailableCars(List<Car> currentCars) {
+        List<Car> availableElectricCars = currentCars.stream().filter(Car::isAvailable).collect(Collectors.toList());
+        availableElectricCars.forEach(System.out::println);
+    }
+
 
 }

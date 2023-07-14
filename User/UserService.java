@@ -19,16 +19,9 @@ public class UserService {
     //retrieve a specific user from database
     public User getUserById(UUID userId){
         List<User> users = userFileDAO.getUsers();
-        //create default user if the user does not exist
-        User expectedUser = null;
         try{
-            for (User user:users){
-                if (user.getUserId().equals(userId)){
-                    expectedUser = user;
-                    break;
-                }
-            }
-            return expectedUser;
+            //used java streams for functional programming for fast processing
+            return users.stream().filter(user -> user.getUserId().equals(userId)).findFirst().orElse(null);
         }catch(NullPointerException e){
             throw new NullPointerException();
         }

@@ -19,6 +19,10 @@ public class CarBookingService {
         return carService.getCars();
     }
 
+    public List<Car> getAllElectricCars(){
+        return carService.getElectricCars();
+    }
+
     public List<CarBooking> getBookings(){
         return (carBookingDAO.bookings());
     }
